@@ -1,0 +1,13 @@
+/*using Microsoft.EntityFrameworkCore;
+namespace RZ_nepremicnine.Models
+{
+    public class NepremicninaContext : DbContext
+    {
+        public NepremicninaContext(DbContextOptions<NepremicninaContext> options)
+            : base(options)
+        {
+        }
+        
+        public DbSet<Nepremicnina> Nepremicnine { get; set; }
+    }
+}*/

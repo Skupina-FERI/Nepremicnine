@@ -4,33 +4,51 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - RZ_nepremicnine</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RZ_nepremicnine.styles.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">RZ_nepremicnine</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link nav-item-custom text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link nav-item-custom text-dark" asp-area="" asp-page="/Privacy">Kupi</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link nav-item-custom text-dark" asp-area="" asp-page="/Prodaj">Prodaj</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link nav-item-custom text-dark" asp-area="" asp-page="/Upravljaj">Upravljaj</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto login-container">
+                        <li class="nav-item">
+                            <partial name="_LoginPartial" />
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+
+    <div class="content-wrapper">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -38,7 +56,8 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - RZ_nepremicnine - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2025 - RZ_nepremicnine - 
+            <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
@@ -48,4 +67,82 @@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
+<style>
+    nav.navbar {
+        background: #ffffff;
+        border-bottom: 1px solid #dcdcdc;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .nav-item-custom {
+        font-size: 17px;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 6px;
+        transition: 0.25s ease-in-out;
+    }
+
+    .nav-item-custom:hover {
+        background-color: #f2f2f2;
+        color: #0d6efd !important;
+        transform: translateY(-2px);
+    }
+
+    footer {
+        padding: 15px 0;
+        font-size: 15px;
+    }
+    .login-container a,
+    .login-container button {
+        font-weight: 600;
+        font-size: 17px;
+        padding: 10px 20px;
+        border-radius: 6px;
+        transition: 0.25s ease-in-out;
+    }
+
+    .login-container button {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .login-container a:hover,
+    .login-container button:hover {
+        background-color: #f2f2f2;
+        color: #0d6efd !important;
+        transform: translateY(-2px);
+    }
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/images/background.jpg');
+        background-size: cover;
+        background-position: center;
+        filter: blur(4px);
+        z-index: -1;
+    }
+    .footer{
+    background-color: white;
+    color: black;
+    padding: 15px 0;
+    }
+    .content-wrapper {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    opacity: 0.98;
+    }
+
+</style>
+
 </html>
