@@ -1,14 +1,15 @@
-/*using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace RZ_nepremicnine.Models
 {
     public class Nepremicnina
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(100)]
         public string Naziv { get; set; }
+
         public string? Description { get; set; }
 
         [Required]
@@ -22,9 +23,15 @@ namespace RZ_nepremicnine.Models
         public int? Spalnic { get; set; }
         public int? Kopalnic { get; set; }
         public decimal? Kvadratura { get; set; }
-        
+
         public string Status { get; set; } = "Na voljo";
-        
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        // Relationships
+        public string? UporabnikiId { get; set; }
+        public Uporabniki? Owner { get; set; }
+
+        public ICollection<PropertyImage>? Images { get; set; }
     }
-}*/
+}
