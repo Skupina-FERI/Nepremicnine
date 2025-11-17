@@ -16,9 +16,15 @@ namespace RZ_nepremicnine.Models
         public decimal Cena { get; set; }
 
         [StringLength(50)]
+        public string? Regija { get; set; }
+
+        [StringLength(50)]
         public string? Mesto { get; set; }
 
         public string? Naslov { get; set; }
+
+        [StringLength(50)]
+        public string? TipNepremicnine { get; set; }
 
         public int? Spalnic { get; set; }
         public int? Kopalnic { get; set; }

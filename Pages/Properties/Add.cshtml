@@ -1,13 +1,153 @@
 @page
 @model RZ_nepremicnine.Pages.Properties.AddModel
 @{
-    ViewData["Title"] = "Add Property";
+    ViewData["Title"] = "Ustvari Oglas";
 }
 
-<h1>Hello, this is my property page!</h1>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="mb-4">Ustvari Nov Oglas</h1>
 
-<form method="post">
-    <label>Naziv nepremicne:</label>
-    <input type="text" name="NepremicninaNaziv" />
-    <button type="submit">Submit</button>
-</form>
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                <!-- Basic Information -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5>Osnovne Informacije</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label asp-for="Input.Naziv" class="form-label">Naslov *</label>
+                            <input asp-for="Input.Naziv" class="form-control" placeholder="npr. Čudovito 3-sobno stanovanje" />
+                            <span asp-validation-for="Input.Naziv" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Description" class="form-label">Opis</label>
+                            <textarea asp-for="Input.Description" class="form-control" rows="5"
+                                placeholder="Opišite vašo nepremičnino podrobno..."></textarea>
+                            <span asp-validation-for="Input.Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Cena" class="form-label">Cena (€) *</label>
+                            <input asp-for="Input.Cena" type="number" step="0.01" class="form-control" placeholder="150000" />
+                            <span asp-validation-for="Input.Cena" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5>Lokacija</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label asp-for="Input.Regija" class="form-label">Regija</label>
+                            <select asp-for="Input.Regija" class="form-select">
+                                <option value="">Izberite regijo...</option>
+                                <option value="Pomurska">Pomurska</option>
+                                <option value="Podravska">Podravska</option>
+                                <option value="Koroška">Koroška</option>
+                                <option value="Savinjska">Savinjska</option>
+                                <option value="Zasavska">Zasavska</option>
+                                <option value="Posavska">Posavska</option>
+                                <option value="Jugovzhodna Slovenija">Jugovzhodna Slovenija</option>
+                                <option value="Primorsko-notranjska">Primorsko-notranjska</option>
+                                <option value="Osrednjeslovenska">Osrednjeslovenska</option>
+                                <option value="Gorenjska">Gorenjska</option>
+                                <option value="Goriška">Goriška</option>
+                                <option value="Obalno-kraška">Obalno-kraška</option>
+                            </select>
+                            <span asp-validation-for="Input.Regija" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Mesto" class="form-label">Mesto</label>
+                            <input asp-for="Input.Mesto" class="form-control" placeholder="npr. Ljubljana, Maribor, Celje..." />
+                            <span asp-validation-for="Input.Mesto" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Naslov" class="form-label">Naslov</label>
+                            <input asp-for="Input.Naslov" class="form-control" placeholder="Ulica in hišna številka" />
+                            <span asp-validation-for="Input.Naslov" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Details -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5>Podrobnosti Nepremičnine</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Input.TipNepremicnine" class="form-label">Tip Nepremičnine *</label>
+                                <select asp-for="Input.TipNepremicnine" class="form-select">
+                                    <option value="">Izberite tip...</option>
+                                    <option value="Stanovanje">Stanovanje</option>
+                                    <option value="Hiša">Hiša</option>
+                                    <option value="Zemljišče">Zemljišče</option>
+                                    <option value="Poslovni prostor">Poslovni prostor</option>
+                                    <option value="Pisarna">Pisarna</option>
+                                    <option value="Garaža">Garaža</option>
+                                </select>
+                                <span asp-validation-for="Input.TipNepremicnine" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Input.Kvadratura" class="form-label">Velikost (m²)</label>
+                                <input asp-for="Input.Kvadratura" type="number" step="0.01" class="form-control" placeholder="85.5" />
+                                <span asp-validation-for="Input.Kvadratura" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Input.Spalnic" class="form-label">Spalnice</label>
+                                <input asp-for="Input.Spalnic" type="number" class="form-control" placeholder="3" />
+                                <span asp-validation-for="Input.Spalnic" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Input.Kopalnic" class="form-label">Kopalnice</label>
+                                <input asp-for="Input.Kopalnic" type="number" class="form-control" placeholder="2" />
+                                <span asp-validation-for="Input.Kopalnic" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Images -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5>Slike</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label asp-for="Input.Images" class="form-label">Naloži Slike</label>
+                            <input asp-for="Input.Images" type="file" class="form-control" multiple accept="image/*" />
+                            <span asp-validation-for="Input.Images" class="text-danger"></span>
+                            <div class="form-text">Izberete lahko več slik. Podprti formati: JPG, PNG, GIF</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Buttons -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-4">
+                    <a href="/" class="btn btn-secondary">Prekliči</a>
+                    <button type="submit" class="btn btn-primary">Ustvari Oglas</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
