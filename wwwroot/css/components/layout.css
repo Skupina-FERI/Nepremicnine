@@ -1,45 +1,106 @@
-/* Navigation Styles */
+/* ===== NAVIGATION BAR ===== */
 nav.navbar {
-    background: #ffffff;
-    border-bottom: 1px solid #dcdcdc;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 5%;
+}
+
+.navbar .navbar-brand, .navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .nav-item-custom {
+    color: var(--text-primary);
+    font-weight: 500;
     font-size: 17px;
-    font-weight: 600;
     padding: 10px 20px;
     border-radius: 6px;
-    transition: 0.25s ease-in-out;
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .nav-item-custom:hover {
-    background-color: #f2f2f2;
-    color: #0d6efd !important;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     transform: translateY(-2px);
 }
 
-/* Footer Styles */
+/* ===== FOOTER ===== */
 footer {
-    padding: 15px 0;
-    font-size: 15px;
+    background-color: var(--bg-secondary);
+    padding: 3rem 5%;
+    border-top: 1px solid var(--border-color);
+    margin-top: 4rem;
 }
 
 .footer {
-    background-color: white;
-    color: black;
-    padding: 15px 0;
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 3rem 0;
 }
 
-/* Login Container Styles */
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: var(--gradient-start);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+/* ===== LOGIN CONTAINER STYLES ===== */
 .login-container a,
 .login-container button {
-    font-weight: 600;
+    color: var(--text-primary);
+    font-weight: 500;
     font-size: 17px;
     padding: 10px 20px;
     border-radius: 6px;
-    transition: 0.25s ease-in-out;
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .login-container button {
@@ -50,13 +111,31 @@ footer {
 
 .login-container a:hover,
 .login-container button:hover {
-    background-color: #f2f2f2;
-    color: #0d6efd !important;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     transform: translateY(-2px);
 }
 
-/* Background Image with Blur */
-body::before {
+.login-container span.nav-link {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ===== CONTENT WRAPPER ===== */
+.content-wrapper {
+    max-width: 1100px;
+    margin: 40px auto 80px auto;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    min-height: calc(100vh - 200px);
+}
+
+/* Optional: Remove background image blur if not needed */
+/* body::before {
     content: "";
     position: fixed;
     top: 0;
@@ -68,15 +147,4 @@ body::before {
     background-position: center;
     filter: blur(4px);
     z-index: -1;
-}
-
-/* Content Wrapper */
-.content-wrapper {
-    max-width: 1100px;
-    margin: 40px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    opacity: 0.98;
-}
+} */

@@ -13,29 +13,30 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
             <div class="container">
+                <a class="navbar-brand logo" asp-area="" asp-page="/Index">Nepremičnine</a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-
                         <li class="nav-item">
-                            <a class="nav-link nav-item-custom text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link nav-item-custom" asp-area="" asp-page="/Index">Home</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link nav-item-custom text-dark" asp-area="" asp-page="/Properties/Browse">Kupi</a>
+                            <a class="nav-link nav-item-custom" asp-area="" asp-page="/Properties/Browse">Kupi</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link nav-item-custom text-dark" asp-area="" asp-page="/Properties/Add">Ustvari oglas</a>
+                            <a class="nav-link nav-item-custom" asp-area="" asp-page="/Properties/Add">Ustvari oglas</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link nav-item-custom text-dark" asp-area="" asp-page="/Admin/Manage">Upravljaj</a>
+                            <a class="nav-link nav-item-custom" asp-area="" asp-page="/Admin/Manage">Upravljaj</a>
                         </li>
                     </ul>
 
@@ -55,9 +56,32 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - RZ_nepremicnine
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Nepremičnine</h3>
+                <p style="color: var(--text-secondary);">Moderne rešitve za nepremičnine s pomočjo tehnologije.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Hitre povezave</h3>
+                <ul>
+                    <li><a asp-area="" asp-page="/Index">Home</a></li>
+                    <li><a asp-area="" asp-page="/Properties/Browse">Kupi</a></li>
+                    <li><a asp-area="" asp-page="/Properties/Add">Ustvari oglas</a></li>
+                    <li><a asp-area="" asp-page="/Admin/Manage">Upravljaj</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Kontakt</h3>
+                <ul>
+                    <li>📧 info@nepremicnine.si</li>
+                    <li>📞 (01) 234-5678</li>
+                    <li>📍 Ljubljana, Slovenija</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Nepremičnine. Vse pravice pridržane.</p>
         </div>
     </footer>
 
