@@ -1,4 +1,5 @@
 ﻿@page
+@using RZ_nepremicnine.Models
 @model RZ_nepremicnine.Pages.Properties.BrowseModel
 @{
     ViewData["Title"] = "Kupi Nepremičnino";
@@ -11,3 +12,37 @@
 <div class="alert alert-info">
     <p class="mb-0">Funkcionalnost za pregled nepremičnin je trenutno v razvoju.</p>
 </div>
+
+@if (Model.Nepreminine != null && Model.Nepreminine.Any())
+{
+    foreach (var Nepremičnina in Model.Nepreminine)
+    {
+        <div class="property-card">
+            <div class="property-image"></div>
+            <div class="property-info">
+                <div class="property-price">€@Nepremičnina.Cena.ToString("N0")</div>
+                <div class="property-address">@Nepremičnina.Naslov, @Nepremičnina.Mesto, @Nepremičnina.Regija</div>
+                <div class="property-features">
+                    @if (Nepremičnina.Spalnic.HasValue)
+                      {
+                          <span>🛏️ @Nepremičnina.Spalnic Beds</span>
+                      }
+                      @if (Nepremičnina.Kopalnic.HasValue)
+                      {
+                          <span>🚿 @Nepremičnina.Kopalnic Baths</span>
+                      }
+                      @if (Nepremičnina.Kvadratura.HasValue)
+                      {
+                          <span>📏 @Nepremičnina.Kvadratura m²</span>
+                      }
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-info">
+        <p class="mb-0">Trenutno ni na voljo nobenih nepremičnin.</p>
+    </div>
+}
