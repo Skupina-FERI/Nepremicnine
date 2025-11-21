@@ -26,4 +26,11 @@ RUN dotnet publish "./RZ_nepremicnine.csproj" -c $BUILD_CONFIGURATION -o /app/pu
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+# Ensure the app user has write permissions to the working directory
+# This is important for SQLite database file creation
+USER root
+RUN chown -R app:app /app
+USER app
+
 ENTRYPOINT ["dotnet", "RZ_nepremicnine.dll"]
