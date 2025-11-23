@@ -31,8 +31,6 @@ namespace RZ_nepremicnine.Pages.Properties
         public async Task<List<Nepremicnina>> GetAllNepremicnineAsync()
         {
             return await _context.Nepremicnine.ToListAsync();
-        }
-
-                    
+        }                    
     }
 }

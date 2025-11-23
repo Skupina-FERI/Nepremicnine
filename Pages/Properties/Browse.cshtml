@@ -4,45 +4,147 @@
 @{
     ViewData["Title"] = "Kupi Nepremičnino";
 }
-<div class="text-center mb-5">
-    <h1><span class="gradient-text">Kupi Nepremičnino</span></h1>
-    <p class="text-secondary">Odkrijte našo ponudbo nepremičnin</p>
-</div>
 
-<div class="alert alert-info">
-    <p class="mb-0">Funkcionalnost za pregled nepremičnin je trenutno v razvoju.</p>
-</div>
+<!-- PAGE WRAPPER -->
+<div class="container-fluid mt-4">
+    <div class="row">
 
-@if (Model.Nepreminine != null && Model.Nepreminine.Any())
-{
-    foreach (var Nepremičnina in Model.Nepreminine)
-    {
-        <div class="property-card">
-            <div class="property-image"></div>
-            <div class="property-info">
-                <div class="property-price">€@Nepremičnina.Cena.ToString("N0")</div>
-                <div class="property-address">@Nepremičnina.Naslov, @Nepremičnina.Mesto, @Nepremičnina.Regija</div>
-                <div class="property-features">
-                    @if (Nepremičnina.Spalnic.HasValue)
-                      {
-                          <span>🛏️ @Nepremičnina.Spalnic Beds</span>
-                      }
-                      @if (Nepremičnina.Kopalnic.HasValue)
-                      {
-                          <span>🚿 @Nepremičnina.Kopalnic Baths</span>
-                      }
-                      @if (Nepremičnina.Kvadratura.HasValue)
-                      {
-                          <span>📏 @Nepremičnina.Kvadratura m²</span>
-                      }
-                </div>
+        <!-- LEFT FILTER SIDEBAR -->
+        <div class="col-lg-3 col-md-4 mb-4">
+
+            <div class="filter-card p-3 shadow-sm">
+                <h5 class="fw-bold mb-3 gradient-text">
+                    <i class="bi bi-funnel"></i> Filtri
+                </h5>
+
+                <label class="fw-semibold">Država</label>
+                <select class="form-select mb-3">
+                    <option value="">Vse države</option>
+                </select>
+
+                <label class="fw-semibold">Regija</label>
+                <select class="form-select mb-3">
+                    <option value="">Vse regije</option>
+                </select>
+
+                <label class="fw-semibold">Posredovanje</label>
+                <select class="form-select mb-3">
+                    <option value="">Vse vrste</option>
+                </select>
+
+                <label class="fw-semibold">Nepremičnina</label>
+                <select class="form-select mb-3">
+                    <option value="">Vse vrste</option>
+                </select>
+
+                <button class="btn btn-outline-secondary w-100">Počisti filtre</button>
             </div>
+
         </div>
-    }
-}
-else
-{
-    <div class="alert alert-info">
-        <p class="mb-0">Trenutno ni na voljo nobenih nepremičnin.</p>
+
+
+        <!-- RIGHT CONTENT -->
+        <div class="col-lg-9 col-md-8">
+
+            <!-- TITLE -->
+            <div class="text-center mb-4">
+                <h1><span class="gradient-text">Kupi Nepremičnino</span></h1>
+                <p class="text-secondary">Odkrijte našo ponudbo nepremičnin</p>
+            </div>
+
+            <!-- ALERT -->
+            <div class="alert alert-info">
+                <p class="mb-0">Funkcionalnost za pregled nepremičnin je trenutno v razvoju.</p>
+            </div>
+
+
+            <!-- PROPERTY LISTINGS -->
+            @if (Model.Nepreminine != null && Model.Nepreminine.Any())
+            {
+                foreach (var Nepremičnina in Model.Nepreminine)
+                {
+                    <div class="card shadow-sm mb-4 property-card">
+                        <div class="row g-0">
+
+                            <!-- IMAGE -->
+                            <div class="col-md-4">
+                                <div class="property-image bg-gradient rounded-start"></div>
+                            </div>
+
+                            <!-- INFO -->
+                            <div class="col-md-8 p-4">
+                                <h4 class="fw-bold">@Nepremičnina.Naslov</h4>
+                                <p class="text-muted mb-1">
+                                    @Nepremičnina.Mesto, @Nepremičnina.Regija
+                                </p>
+
+                                <div class="property-price mb-2">
+                                    €@Nepremičnina.Cena.ToString("N0")
+                                </div>
+
+                                <div class="property-features mb-3">
+                                    @if (Nepremičnina.Spalnic.HasValue)
+                                    {
+                                        <span>🛏️ @Nepremičnina.Spalnic Beds</span>
+                                    }
+                                    @if (Nepremičnina.Kopalnic.HasValue)
+                                    {
+                                        <span>🚿 @Nepremičnina.Kopalnic Baths</span>
+                                    }
+                                    @if (Nepremičnina.Kvadratura.HasValue)
+                                    {
+                                        <span>📏 @Nepremičnina.Kvadratura m²</span>
+                                    }
+                                </div>
+
+                                <button class="btn btn-primary">Podrobnosti</button>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    <p class="mb-0">Trenutno ni na voljo nobenih nepremičnin.</p>
+                </div>
+            }
+
+        </div>
     </div>
-}
+</div>
+
+<!-- FILTER CSS OVERRIDE -->
+<style>
+    /* Apply your theme */
+    .filter-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+    }
+
+    .filter-card select,
+    .filter-card input {
+        background: var(--bg-secondary);
+        border-radius: 8px !important;
+        border: 1px solid var(--border-color);
+        padding: .6rem .8rem;
+    }
+
+    .property-image {
+        height: 200px;
+        background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    }
+
+    .property-price {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: var(--gradient-end);
+    }
+
+    .property-card:hover {
+        transform: var(--hover-transform);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+    }
+</style>
