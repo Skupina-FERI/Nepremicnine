@@ -30,7 +30,9 @@ namespace RZ_nepremicnine.Pages.Properties
         //Simple dobi vse nepremicnine
         public async Task<List<Nepremicnina>> GetAllNepremicnineAsync()
         {
-            return await _context.Nepremicnine.ToListAsync();
+            return await _context.Nepremicnine
+                .Include(n => n.Images)
+                .ToListAsync();
         }                    
     }
 }
