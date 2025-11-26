@@ -97,29 +97,40 @@ namespace RZ_nepremicnine.Pages.Properties
             _context.Nepremicnine.Add(nepremicnina);
             await _context.SaveChangesAsync();
 
-            // TODO: Handle image uploads and save to PropertyImage table
+            // Handle image uploads and save to PropertyImage table
             if (Input.Images != null && Input.Images.Count > 0)
             {
+                // Ensure the directory exists
+                var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "properties");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
                 foreach (var image in Input.Images)
                 {
                     if (image.Length > 0)
                     {
-                        // TODO: Implement image upload to wwwroot/images/properties
-                        // For now, just skip image handling
-                        // var fileName = Path.GetFileName(image.FileName);
-                        // var filePath = Path.Combine(_environment.WebRootPath, "images", "properties", fileName);
-                        // using (var stream = new FileStream(filePath, FileMode.Create))
-                        // {
-                        //     await image.CopyToAsync(stream);
-                        // }
-                        // _context.PropertyImages.Add(new PropertyImage
-                        // {
-                        //     ImageUrl = $"/images/properties/{fileName}",
-                        //     NepremicninaId = nepremicnina.Id
-                        // });
+                        // Generate unique filename to avoid conflicts
+                        var fileExtension = Path.GetExtension(image.FileName);
+                        var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
+                        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        // Save the file to disk
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await image.CopyToAsync(stream);
+                        }
+
+                        // Create PropertyImage record in database
+                        _context.PropertyImages.Add(new PropertyImage
+                        {
+                            ImageUrl = $"/images/properties/{uniqueFileName}",
+                            NepremicninaId = nepremicnina.Id
+                        });
                     }
                 }
-                // await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
 
             TempData["SuccessMessage"] = "Oglas je bil uspešno ustvarjen!";
