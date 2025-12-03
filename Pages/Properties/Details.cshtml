@@ -1,0 +1,193 @@
+@page
+@using RZ_nepremicnine.Models
+@model RZ_nepremicnine.Pages.Properties.DetailsModel
+@{
+    ViewData["Title"] = Model.Nepremicnina.Naziv;
+}
+
+<div class="container my-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">@Model.Nepremicnina.Naziv</h1>
+        </div>
+    </div>
+
+    @if (Model.Nepremicnina.Images != null && Model.Nepremicnina.Images.Any())
+    {
+        <div class="row mb-4">
+            <div class="col-12">
+                <div id="propertyImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach (var image in Model.Nepremicnina.Images.Select((img, index) => new { img, index }))
+                        {
+                            <div class="carousel-item @(image.index == 0 ? "active" : "")">
+                                <img src="@image.img.ImageUrl" class="d-block w-100 property-detail-image" alt="@Model.Nepremicnina.Naziv" style="max-height: 500px; object-fit: cover;">
+                            </div>
+                        }
+                    </div>
+                    @if (Model.Nepremicnina.Images.Count > 1)
+                    {
+                        <button class="carousel-control-prev" type="button" data-bs-target="#propertyImagesCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#propertyImagesCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Osnovni podatki</h3>
+                    <hr />
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Cena:</strong>
+                            <p class="text-primary fs-4">@Model.Nepremicnina.Cena.ToString("C")</p>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Status:</strong>
+                            <p><span class="badge bg-success">@Model.Nepremicnina.Status</span></p>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.Nepremicnina.TipNepremicnine))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <strong>Tip nepremičnine:</strong>
+                                <p>@Model.Nepremicnina.TipNepremicnine</p>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="row mb-3">
+                        @if (Model.Nepremicnina.Kvadratura.HasValue)
+                        {
+                            <div class="col-md-4">
+                                <strong>Kvadratura:</strong>
+                                <p>@Model.Nepremicnina.Kvadratura m²</p>
+                            </div>
+                        }
+                        @if (Model.Nepremicnina.Spalnic.HasValue)
+                        {
+                            <div class="col-md-4">
+                                <strong>Spalnice:</strong>
+                                <p>@Model.Nepremicnina.Spalnic</p>
+                            </div>
+                        }
+                        @if (Model.Nepremicnina.Kopalnic.HasValue)
+                        {
+                            <div class="col-md-4">
+                                <strong>Kopalnice:</strong>
+                                <p>@Model.Nepremicnina.Kopalnic</p>
+                            </div>
+                        }
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.Nepremicnina.Description))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <strong>Opis:</strong>
+                                <p>@Model.Nepremicnina.Description</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Lokacija</h3>
+                    <hr />
+                    @if (!string.IsNullOrEmpty(Model.Nepremicnina.Naslov))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <strong>Naslov:</strong>
+                                <p>@Model.Nepremicnina.Naslov</p>
+                            </div>
+                        </div>
+                    }
+                    <div class="row mb-3">
+                        @if (!string.IsNullOrEmpty(Model.Nepremicnina.Mesto))
+                        {
+                            <div class="col-md-6">
+                                <strong>Mesto:</strong>
+                                <p>@Model.Nepremicnina.Mesto</p>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Nepremicnina.Regija))
+                        {
+                            <div class="col-md-6">
+                                <strong>Regija:</strong>
+                                <p>@Model.Nepremicnina.Regija</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            @if (Model.Nepremicnina.Owner != null)
+            {
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title">Kontakt</h3>
+                        <hr />
+                        <p><strong>Prodajalec:</strong></p>
+                        <p>@Model.Nepremicnina.Owner.Email</p>
+                        @if (!string.IsNullOrEmpty(Model.Nepremicnina.Owner.PhoneNumber))
+                        {
+                            <p><strong>Telefon:</strong></p>
+                            <p>@Model.Nepremicnina.Owner.PhoneNumber</p>
+                        }
+                    </div>
+                </div>
+            }
+
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Dodatne informacije</h3>
+                    <hr />
+                    <p><strong>Objavljeno:</strong></p>
+                    <p>@Model.Nepremicnina.CreatedAt.ToString("dd.MM.yyyy")</p>
+                    <p><strong>ID:</strong></p>
+                    <p>@Model.Nepremicnina.Id</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <a asp-page="/Properties/Browse" class="btn btn-secondary">Nazaj na seznam</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .property-detail-image {
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .property-detail-image:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .carousel-inner {
+        border-radius: 12px;
+    }
+</style>

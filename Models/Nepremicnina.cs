@@ -8,13 +8,14 @@ namespace RZ_nepremicnine.Models
 
         [Required]
         [StringLength(100)]
-        public string Naziv { get; set; }
+        public string? Naziv { get; set; }
 
         public string? Description { get; set; }
 
         [Required]
         public decimal Cena { get; set; }
 
+        // OLD version (must keep)
         [StringLength(50)]
         public string? Regija { get; set; }
 
@@ -31,7 +32,6 @@ namespace RZ_nepremicnine.Models
         public decimal? Kvadratura { get; set; }
 
         public string Status { get; set; } = "Na voljo";
-
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         // Relationships
@@ -39,5 +39,15 @@ namespace RZ_nepremicnine.Models
         public Uporabniki? Owner { get; set; }
 
         public ICollection<PropertyImage>? Images { get; set; }
+
+        public int? RegijaFK { get; set; }
+        public Regija? RegijaNavigation { get; set; }
+
+        public int? PosredovanjeFK { get; set; }
+        public Posredovanje? PosredovanjeNavigation { get; set; }
+
+        public int? VrstaNepremicnineFK { get; set; }
+        public VrstaNepremicnine? VrstaNepremicnineNavigation { get; set; }
     }
+
 }

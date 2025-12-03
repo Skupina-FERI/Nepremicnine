@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RZ_nepremicnine.Data;
 
@@ -10,9 +11,11 @@ using RZ_nepremicnine.Data;
 namespace RZ_nepremicnine.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251127104406_AddLookupTables")]
+    partial class AddLookupTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.11");
@@ -239,28 +242,6 @@ namespace RZ_nepremicnine.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Posredovanja");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Prodaja"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Oddaja"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Nakup"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Najem"
-                        });
                 });
 
             modelBuilder.Entity("RZ_nepremicnine.Models.PropertyImage", b =>
@@ -295,28 +276,6 @@ namespace RZ_nepremicnine.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Regije");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Pomurska"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Podravska"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Koroška"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Savinjska"
-                        });
                 });
 
             modelBuilder.Entity("RZ_nepremicnine.Models.Uporabniki", b =>
@@ -399,28 +358,6 @@ namespace RZ_nepremicnine.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VrsteNepremicnin");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Stanovanje"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Hiša"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Parcela"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Poslovni prostor"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
