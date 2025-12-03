@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using RZ_nepremicnine.Data;
 using RZ_nepremicnine.Models;
+using RZ_nepremicnine.Pages.Properties;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,6 @@ builder.Services.AddIdentity<Uporabniki, IdentityRole>(options =>
     options.SignIn.RequireConfirmedPhoneNumber = false;
 }).AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
-
 
 var app = builder.Build();
 

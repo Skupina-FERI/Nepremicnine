@@ -17,22 +17,34 @@
                     <i class="bi bi-funnel"></i> Filtri
                 </h5>
 
-                <label class="fw-semibold">Regija</label>
-                <select class="form-select mb-3">
-                    <option value="">Vse regije</option>
-                </select>
+                <form method="get">
+                    <label class="fw-semibold">Regija</label>
+                    <select name="SelectedRegion" class="form-select mb-3">
+                        <option value="">Vse regije</option>
+                        @foreach(var v in Model.Region){
+                            <option value="@v" selected="@(Model.SelectedRegion == v)">@v</option>
+                        }
+                    </select>
 
-                <label class="fw-semibold">Posredovanje</label>
-                <select class="form-select mb-3">
-                    <option value="">Vse vrste</option>
-                </select>
+                    @* <label class="fw-semibold">Posredovanje</label>
+                    <select name="SelectedPosredovanje" class="form-select mb-3">
+                        <option value="">Vse vrste</option>
+                        @foreach(var v in Model.Posredovanje){
+                            <option value="@v" selected="@(Model.SelectedPosredovanje == v)">@v</option>
+                        }
+                    </select> *@
 
-                <label class="fw-semibold">Nepremičnina</label>
-                <select class="form-select mb-3">
-                    <option value="">Vse vrste</option>
-                </select>
+                    <label class="fw-semibold">Nepremičnina</label>
+                    <select name="SelectedVrstaNepremicnine" class="form-select mb-3">
+                        <option value="">Vse vrste</option>
+                        @foreach(var v in Model.VrstaNepremicnine){
+                            <option value="@v" selected="@(Model.SelectedVrstaNepremicnine == v)">@v</option>
+                        }
+                    </select>
 
-                <button class="btn btn-outline-secondary w-100">Počisti filtre</button>
+                    <button type="submit" class="btn btn-primary w-100 mb-2">Iskanje</button>
+                    <a href="/Properties/Browse" class="btn btn-outline-secondary w-100">Počisti filtre</a>
+                </form>
             </div>
 
         </div>
@@ -54,9 +66,9 @@
 
 
             <!-- PROPERTY LISTINGS -->
-            @if (Model.Nepreminine != null && Model.Nepreminine.Any())
+            @if (Model.Nepremicnine != null && Model.Nepremicnine.Any())
             {
-                foreach (var Nepremičnina in Model.Nepreminine)
+                foreach (var Nepremičnina in Model.Nepremicnine)
                 {
                     <div class="card shadow-sm mb-4 property-card">
                         <div class="row g-0">

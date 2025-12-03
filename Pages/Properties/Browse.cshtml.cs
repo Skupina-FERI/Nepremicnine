@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using RZ_nepremicnine.Data;
 using RZ_nepremicnine.Models;
 
@@ -10,6 +8,34 @@ namespace RZ_nepremicnine.Pages.Properties
 {
     public class BrowseModel : PageModel
     {
+        public List<string> Region { get; set; } = new List<string>
+        {
+            "Pomurska", "Podravska", "Koroška", "Savinjska", "Zasavska", "Posavska",
+            "Jugovzhodna Slovenija", "Osrednjeslovenska", "Gorenjska",
+            "Primorsko-notranjska", "Goriška", "Obalno-kraška"
+        };
+
+        public List<string> Posredovanje { get; set; } = new List<string>
+        {
+            "Prodaja", "Oddaja", "Nakup", "Najem"
+        };
+
+        public List<string> VrstaNepremicnine { get; set; } = new List<string>
+        {
+            "Stanovanje", "Hiša", "Parcela", "Poslovni prostor",
+            "Garaža", "Počitniški objekt", "Kmetijsko zemljišče"
+        };
+
+        // Filter binds
+        [BindProperty(SupportsGet = true)]
+        public string? SelectedRegion { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string? SelectedPosredovanje { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string? SelectedVrstaNepremicnine { get; set; }
+
         private readonly ILogger<BrowseModel> _logger;
         private readonly AppDbContext _context;
 
@@ -18,21 +44,33 @@ namespace RZ_nepremicnine.Pages.Properties
             _logger = logger;
             _context = context;
         }
-    
-            // TODO: Load available properties for browsing
-            public List<Nepremicnina> Nepreminine { get; set; }
+
+        public List<Nepremicnina> Nepremicnine { get; set; }
 
         public async Task OnGetAsync()
         {
-            Nepreminine = await GetAllNepremicnineAsync();
-        }
-
-        //Simple dobi vse nepremicnine
-        public async Task<List<Nepremicnina>> GetAllNepremicnineAsync()
-        {
-            return await _context.Nepremicnine
+            var query = _context.Nepremicnine
                 .Include(n => n.Images)
-                .ToListAsync();
-        }                    
+                .Include(n => n.PosredovanjeNavigation)
+                .Include(n => n.VrstaNepremicnineNavigation)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(SelectedRegion))
+            {
+                query = query.Where(n => n.Regija == SelectedRegion);
+            }
+
+            if (!string.IsNullOrEmpty(SelectedPosredovanje))
+            {
+                query = query.Where(n => n.PosredovanjeNavigation != null && n.PosredovanjeNavigation.Name == SelectedPosredovanje);
+            }
+
+            if (!string.IsNullOrEmpty(SelectedVrstaNepremicnine))
+            {
+                query = query.Where(n => n.TipNepremicnine == SelectedVrstaNepremicnine);
+            }
+
+            Nepremicnine = await query.ToListAsync();
+        }
     }
 }
