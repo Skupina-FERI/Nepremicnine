@@ -26,13 +26,13 @@
                         }
                     </select>
 
-                    @* <label class="fw-semibold">Posredovanje</label>
+                    <label class="fw-semibold">Posredovanje</label>
                     <select name="SelectedPosredovanje" class="form-select mb-3">
                         <option value="">Vse vrste</option>
                         @foreach(var v in Model.Posredovanje){
                             <option value="@v" selected="@(Model.SelectedPosredovanje == v)">@v</option>
                         }
-                    </select> *@
+                    </select>
 
                     <label class="fw-semibold">Nepremičnina</label>
                     <select name="SelectedVrstaNepremicnine" class="form-select mb-3">

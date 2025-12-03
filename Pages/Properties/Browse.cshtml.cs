@@ -52,25 +52,34 @@ namespace RZ_nepremicnine.Pages.Properties
             var query = _context.Nepremicnine
                 .Include(n => n.Images)
                 .Include(n => n.PosredovanjeNavigation)
-                .Include(n => n.VrstaNepremicnineNavigation)
                 .AsQueryable();
+
+            var totalCount = await query.CountAsync();
+            _logger.LogInformation($"Total properties before filter: {totalCount}");
+            _logger.LogInformation($"SelectedRegion: '{SelectedRegion}'");
+            _logger.LogInformation($"SelectedPosredovanje: '{SelectedPosredovanje}'");
+            _logger.LogInformation($"SelectedVrstaNepremicnine: '{SelectedVrstaNepremicnine}'");
 
             if (!string.IsNullOrEmpty(SelectedRegion))
             {
                 query = query.Where(n => n.Regija == SelectedRegion);
+                _logger.LogInformation($"After Regija filter: {await query.CountAsync()}");
             }
 
             if (!string.IsNullOrEmpty(SelectedPosredovanje))
             {
                 query = query.Where(n => n.PosredovanjeNavigation != null && n.PosredovanjeNavigation.Name == SelectedPosredovanje);
+                _logger.LogInformation($"After Posredovanje filter: {await query.CountAsync()}");
             }
 
             if (!string.IsNullOrEmpty(SelectedVrstaNepremicnine))
             {
                 query = query.Where(n => n.TipNepremicnine == SelectedVrstaNepremicnine);
+                _logger.LogInformation($"After TipNepremicnine filter: {await query.CountAsync()}");
             }
 
             Nepremicnine = await query.ToListAsync();
+            _logger.LogInformation($"Final count: {Nepremicnine.Count}");
         }
     }
 }

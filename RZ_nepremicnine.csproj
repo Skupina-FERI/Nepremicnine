@@ -36,6 +36,12 @@
     <PackageReference Include="MSTest.TestFramework" Version="4.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="mydatabase.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
   <!-- No custom AssemblyInfo.cs needed; SDK auto-generates attributes -->
 
 </Project>
