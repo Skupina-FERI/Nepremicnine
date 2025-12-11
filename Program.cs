@@ -43,6 +43,19 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<AppDbContext>();
+
+        // Ensure the database directory exists (especially for /home path in Azure)
+        var connectionString = builder.Configuration.GetConnectionString("Default");
+        if (!string.IsNullOrEmpty(connectionString) && connectionString.Contains("Data Source="))
+        {
+            var dataSource = connectionString.Split("Data Source=")[1].Split(';')[0].Trim();
+            var directory = Path.GetDirectoryName(dataSource);
+            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+        }
+
         context.Database.Migrate();
     }
     catch (Exception ex)
