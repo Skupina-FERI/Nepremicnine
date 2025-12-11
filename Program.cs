@@ -45,7 +45,7 @@ using (var scope = app.Services.CreateScope())
         var context = services.GetRequiredService<AppDbContext>();
 
         // Ensure the database directory exists (especially for /home path in Azure)
-        var connectionString = builder.Configuration.GetConnectionString("Default");
+        // Use the connectionString variable from line 19
         if (!string.IsNullOrEmpty(connectionString) && connectionString.Contains("Data Source="))
         {
             var dataSource = connectionString.Split("Data Source=")[1].Split(';')[0].Trim();
