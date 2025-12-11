@@ -26,4 +26,10 @@ RUN dotnet publish "./RZ_nepremicnine.csproj" -c $BUILD_CONFIGURATION -o /app/pu
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+# Switch to root to set permissions for database directory
+USER root
+RUN chown -R app:app /app
+USER app
+
 ENTRYPOINT ["dotnet", "RZ_nepremicnine.dll"]
