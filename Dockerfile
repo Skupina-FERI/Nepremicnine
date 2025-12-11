@@ -27,7 +27,8 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-# Switch to root to set permissions for database directory
+# Ensure the app user has write permissions to the working directory
+# This is important for SQLite database file creation
 USER root
 RUN chown -R app:app /app
 USER app

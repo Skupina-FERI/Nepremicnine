@@ -10,9 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// UseSqlite
+// Configure SQLite with Azure-compatible path
+// Azure Web Apps persist /home directory, use it for database storage
+var dbPath = Environment.GetEnvironmentVariable("HOME") != null
+    ? Path.Combine(Environment.GetEnvironmentVariable("HOME")!, "mydatabase.db")
+    : "mydatabase.db";
+
+var connectionString = $"Data Source={dbPath}";
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
+    options.UseSqlite(connectionString));
 
 builder.Services.AddIdentity<Uporabniki, IdentityRole>(options =>
 {
@@ -29,26 +36,13 @@ builder.Services.AddIdentity<Uporabniki, IdentityRole>(options =>
 
 var app = builder.Build();
 
-// Automatically apply database migrations on startup
+// Apply database migrations automatically
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
         var context = services.GetRequiredService<AppDbContext>();
-
-        // Ensure the database directory exists (for production /home/data path)
-        var connectionString = builder.Configuration.GetConnectionString("Default");
-        if (!string.IsNullOrEmpty(connectionString) && connectionString.Contains("Data Source="))
-        {
-            var dataSource = connectionString.Split("Data Source=")[1].Split(';')[0].Trim();
-            var directory = Path.GetDirectoryName(dataSource);
-            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-        }
-
         context.Database.Migrate();
     }
     catch (Exception ex)
