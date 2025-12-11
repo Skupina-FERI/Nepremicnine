@@ -199,3 +199,40 @@ docker push borci1417/nepremicnine:latest
 ```
 
 Azure deployment uses publish profile secret `AZURE_WEBAPP_PUBLISH_PROFILE_TEST`.
+
+### Azure Persistent Storage for SQLite
+
+The application uses Azure Web App's persistent `/home` directory to store the SQLite database, ensuring data survives container restarts and redeployments.
+
+**Configuration:**
+- **Local/Development**: Database stored at `mydatabase.db` (root directory)
+- **Production/Azure**: Database stored at `/home/data/mydatabase.db` (persistent storage)
+
+**How it works:**
+1. `appsettings.Production.json` configures the connection string to use `/home/data/mydatabase.db`
+2. Azure Web Apps automatically mounts `/home` from Azure Storage (persistent)
+3. `Program.cs` automatically creates the `/home/data` directory if it doesn't exist
+4. Database migrations run automatically on app startup
+
+**Azure Configuration Required:**
+The Azure Web App must have the persistent storage setting enabled:
+
+```bash
+# Enable persistent storage (if not already enabled)
+az webapp config appsettings set \
+  --resource-group <your-resource-group> \
+  --name rgis-nepremicnine-test \
+  --settings WEBSITES_ENABLE_APP_SERVICE_STORAGE=true
+```
+
+Alternatively, enable in Azure Portal:
+1. Go to your Web App → Configuration
+2. Under "Application settings", add/verify:
+   - Name: `WEBSITES_ENABLE_APP_SERVICE_STORAGE`
+   - Value: `true`
+3. Save and restart the app
+
+**Important Notes:**
+- The `/home` directory is limited to 1GB by default
+- For production at scale, consider migrating to Azure SQL Database or PostgreSQL
+- Database backups should be configured separately (not automatic with this setup)

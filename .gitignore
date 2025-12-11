@@ -17,3 +17,10 @@
 *.pdb
 *.cache
 *.log
+
+# Test results and coverage
+TestResults/
+coveragereport/
+**/TestResults/
+**/coveragereport/
+*.cobertura.xml
