@@ -3,12 +3,61 @@
 @{
     ViewData["Title"] = "Upravljaj";
 }
+
 <div class="text-center mb-5">
     <h1><span class="gradient-text">Upravljaj</span></h1>
     <p class="text-secondary">Administratorska nadzorna plošča</p>
 </div>
 
-<div class="hero text-center">
-    <button></button>
+<div class="container">
+    <div class="row justify-content-center">
+
+        <div class="col-lg-6 col-md-8">
+
+            <div class="card shadow-sm profile-card p-4">
+
+                <div class="text-center mb-4">
+                    <h4 class="fw-bold gradient-text mb-1">Profil uporabnika</h4>
+                    <p class="text-secondary mb-0">Osnovni podatki računa</p>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-semibold text-muted">Ime in priimek</label>
+                    <div class="profile-field">
+                        @Model.FullName
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-semibold text-muted">E-pošta</label>
+                    <div class="profile-field">
+                        @Model.Email
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-semibold text-muted">Vloga</label>
+                    <div class="profile-field">
+                        Administrator
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<style>
+    .profile-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+    }
+
+    .profile-field {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: .7rem .9rem;
+        font-weight: 500;
+    }
+</style>
