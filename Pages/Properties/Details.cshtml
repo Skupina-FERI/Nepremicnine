@@ -117,6 +117,12 @@
                             </div>
                         </div>
                     }
+                    <form method="post" asp-page-handler="ToggleFavorite" class="mb-3">
+                        <input type="hidden" name="propertyId" value="@Model.Nepremicnina.Id" />
+                        <button type="submit" class="btn btn-outline-danger">
+                            ❤️ Dodaj med priljubljene
+                        </button>
+                    </form>
                     <div class="row mb-3">
                         @if (!string.IsNullOrEmpty(Model.Nepremicnina.Mesto))
                         {

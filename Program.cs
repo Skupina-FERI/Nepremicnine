@@ -10,6 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+
 // Configure SQLite with Azure-compatible path
 // Azure Web Apps persist /home directory, use it for database storage
 var dbPath = Environment.GetEnvironmentVariable("HOME") != null
@@ -73,6 +81,9 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
+
 
 app.UseAuthentication();
 app.UseAuthorization();

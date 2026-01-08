@@ -36,5 +36,22 @@ namespace RZ_nepremicnine.Pages.Properties
 
             return Page();
         }
+        public IActionResult OnPostToggleFavorite(int propertyId)
+            {
+                var favorites = HttpContext.Session.GetString("Favorites");
+
+                List<int> list = string.IsNullOrEmpty(favorites)
+                    ? new List<int>()
+                    : favorites.Split(',').Select(int.Parse).ToList();
+
+                if (list.Contains(propertyId))
+                    list.Remove(propertyId);
+                else
+                    list.Add(propertyId);
+
+                HttpContext.Session.SetString("Favorites", string.Join(",", list));
+
+                return RedirectToPage(new { id = propertyId });
+            }
     }
 }
